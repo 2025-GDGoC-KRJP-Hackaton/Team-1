@@ -21,13 +21,13 @@ function ArticleHorizontalScrollCard({
   return (
     <>
       {articles.length > 0 && (
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto scroll-snap-x scroll-smooth">
           <div className="flex gap-4 w-max p-4">
             {articles.map((article) => (
               <Link
                 href={`/events/${eventId}/${article.id}`}
                 key={article.id}
-                className="flex-shrink-0 flex flex-col gap-2 bg-white p-2 rounded-md w-[90vw] snap-center"
+                className="scroll-snap-start flex-shrink-0 flex flex-col gap-2 bg-white p-2 rounded-md w-[90vw]"
               >
                 <h3 className="text-lg font-semibold p-1">{article.title}</h3>
                 <p className="text-gray-500 text-sm p-1">
