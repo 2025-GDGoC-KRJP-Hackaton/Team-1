@@ -42,8 +42,8 @@ export default async function EventPage({
               key={article.id}
               className="flex flex-col gap-2 bg-white p-2 rounded-md"
             >
-              <h3 className="text-lg font-semibold">{article.title}</h3>
-              <p className="text-gray-500 text-sm">{article.description}</p>
+              <h3 className="text-lg font-semibold p-1">{article.title}</h3>
+              <p className="text-gray-500 text-sm p-1">{article.description}</p>
               <div className="flex items-center gap-2 justify-start">
                 <p>{article.pressOrganization}</p>
                 <div>{article.createdAt.toLocaleDateString()}</div>

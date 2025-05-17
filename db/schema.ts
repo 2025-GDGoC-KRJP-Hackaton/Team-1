@@ -19,6 +19,7 @@ export const articleTable = pgTable("articleTable", {
   title: text("title").notNull(),
   description: text("description"),
   image: text("image"),
+  content: text("content"),
   pressOrganization: text("press_organization").notNull(),
   journalist: text("journalist").notNull(),
   eventId: integer("event_id").references(() => eventTable.id),
