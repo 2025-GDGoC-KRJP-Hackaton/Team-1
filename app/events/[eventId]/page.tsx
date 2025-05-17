@@ -2,7 +2,7 @@ import db from "@/db";
 import {articleTable, eventTable} from "@/db/schema";
 import {eq} from "drizzle-orm";
 import Image from "next/image";
-import Link from "next/link";
+import SelectArticleCard from "@/app/components/select-article-card";
 
 async function getArticles(eventId: string) {
   return await db.query.articleTable.findMany({
@@ -11,83 +11,6 @@ async function getArticles(eventId: string) {
 }
 
 export type Article = Awaited<ReturnType<typeof getArticles>>[number];
-function ArticleHorizontalScrollCard({
-  articles,
-  eventId,
-}: {
-  articles: Awaited<ReturnType<typeof getArticles>>;
-  eventId: string;
-}) {
-  return (
-    <>
-      {articles.length > 0 && (
-        <div className="w-full overflow-x-auto snap-proximity snap-x lg:overflow-x-visible lg:snap-none lg:grid-cols-2 lg:flex-1">
-          <div className="flex gap-4 w-max p-4 lg:flex lg:flex-col lg:w-auto lg:p-0">
-            {articles.map((article) => (
-              <Link
-                href={`/events/${eventId}/${article.id}`}
-                key={article.id}
-                className="flex-shrink-0 flex flex-col gap-2 bg-white p-2 rounded-md w-[90vw] snap-center lg:w-auto"
-              >
-                <h3 className="text-lg font-semibold p-1">{article.title}</h3>
-                <p className="text-gray-500 text-sm p-1">
-                  {article.description}
-                </p>
-                <div className="flex items-center gap-2 justify-start">
-                  <p>{article.pressOrganization}</p>
-                  <div>{article.createdAt.toLocaleDateString()}</div>
-                </div>
-                <div>
-                  <div className="w-full h-4 rounded-full flex items-center justify-between bg-neutral-200/80">
-                    <div
-                      className={`${
-                        -3 === article.politicalGrade && "bg-blue-700"
-                      } w-full h-4 rounded-full`}
-                    />
-                    <div
-                      className={`${
-                        -2 === article.politicalGrade && "bg-blue-500"
-                      } w-full h-4 rounded-full`}
-                    />
-                    <div
-                      className={`${
-                        -1 === article.politicalGrade && "bg-blue-300"
-                      } w-full h-4 rounded-full`}
-                    />
-                    <div
-                      className={`${
-                        0 === article.politicalGrade && "bg-green-600"
-                      } w-full h-4 rounded-full`}
-                    />
-                    <div
-                      className={`${
-                        1 === article.politicalGrade && "bg-red-300"
-                      } w-full h-4 rounded-full`}
-                    />
-                    <div
-                      className={`${
-                        2 === article.politicalGrade && "bg-red-500"
-                      } w-full h-4 rounded-full`}
-                    />
-                    <div
-                      className={`${
-                        3 === article.politicalGrade && "bg-red-700"
-                      } w-full h-4 rounded-full`}
-                    />
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div>Left</div>
-                    <div>Right</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
 
 export default async function EventPage({
   params,
@@ -104,6 +27,21 @@ export default async function EventPage({
 
   const [event, articles] = await Promise.all([eventPromise, articlesPromise]);
 
+  const leftArticles = [];
+  const rightArticles = [];
+  const centerArticles = [];
+
+  for (const article of articles) {
+    if (article?.politicalGrade === null) {
+    } else if (article?.politicalGrade && article?.politicalGrade < 0) {
+      leftArticles.push(article);
+    } else if (article?.politicalGrade && article?.politicalGrade > 0) {
+      rightArticles.push(article);
+    } else if (article?.politicalGrade === 0) {
+      centerArticles.push(article);
+    }
+  }
+
   return (
     <div className="w-full">
       <Image
@@ -118,7 +56,7 @@ export default async function EventPage({
           <h1 className="text-2xl font-bold">{event?.title}</h1>
           <p className="text-gray-500">{event?.description}</p>
         </div>
-        <ArticleHorizontalScrollCard articles={articles} eventId={eventId} />
+        <SelectArticleCard articles={articles} prevHref={`events/${eventId}`} />
       </div>
     </div>
   );
