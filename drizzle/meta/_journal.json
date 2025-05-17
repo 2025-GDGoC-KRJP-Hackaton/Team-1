@@ -50,6 +50,13 @@
       "when": 1747501611603,
       "tag": "0006_young_havok",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1747502905715,
+      "tag": "0007_sticky_omega_sentinel",
+      "breakpoints": true
     }
   ]
 }

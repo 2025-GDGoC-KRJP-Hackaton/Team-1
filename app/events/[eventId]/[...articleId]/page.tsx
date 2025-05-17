@@ -54,7 +54,7 @@ export default async function ArticlePage({
 
   const thisArticle = articles[articleId.length - 1];
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col gap-2">
       <Image
         src={thisArticle?.image || "/default-article.png"}
         alt={thisArticle?.title || "Article Image"}
@@ -70,7 +70,7 @@ export default async function ArticlePage({
         </div>
         <p>{thisArticle?.journalist}</p>
       </div>
-      <div>{thisArticle?.content}</div>
+      <div className="p-4">{thisArticle?.content}</div>
       {articleId.length === 1 && (
         <div>
           <SelectArticleCard
@@ -88,9 +88,14 @@ export default async function ArticlePage({
         </div>
       )}
       {otherArticles.length === 0 && (
-        <Link href={`/analysis?articles=${articleId.join(",")}`}>
-          Show Common Information
-        </Link>
+        <div className="p-4 w-full flex justify-center">
+          <Link
+            href={`/analysis?articles=${articleId.join(",")}`}
+            className="p-2 bg-neutral-900 rounded-md text-white text-center w-full"
+          >
+            Compare news articles
+          </Link>
+        </div>
       )}
     </div>
   );

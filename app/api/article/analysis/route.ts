@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";
 import { GoogleGenAI, Type } from "@google/genai";
 import db from "@/db";
-import { articleTable } from "@/db/schema";
-import { inArray } from "drizzle-orm";
+import { articleComparisonTable, articleTable } from "@/db/schema";
+import { inArray, eq } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   const { articleIds } = (await request.json()) as { articleIds: number[] };
@@ -58,6 +58,14 @@ Return your response in JSON only:
   for await (const chunk of response) {
     result.push(chunk.text);
   }
+
+  const parsedResult = JSON.parse(result.join(""));
+
+  await db.insert(articleComparisonTable).values({
+    commonOpinions: parsedResult.commonOpinions as string[],
+    differentOppinions: parsedResult.differentOpinions as string[][],
+    articleIdList: articleIds.map((id) => id.toString()),
+  });
 
   return NextResponse.json({ result: result.join("") });
 }

@@ -40,7 +40,47 @@ function ArticleHorizontalScrollCard({
                   <div>{article.createdAt.toLocaleDateString()}</div>
                 </div>
                 <div>
-                  <p>0</p>
+                  <div className="w-full h-4 rounded-full flex items-center justify-between bg-neutral-200/80">
+                    <div
+                      className={`${
+                        -3 === article.politicalGrade && "bg-blue-700"
+                      } w-full h-4 rounded-full`}
+                    />
+                    <div
+                      className={`${
+                        -2 === article.politicalGrade && "bg-blue-500"
+                      } w-full h-4 rounded-full`}
+                    />
+                    <div
+                      className={`${
+                        -1 === article.politicalGrade && "bg-blue-300"
+                      } w-full h-4 rounded-full`}
+                    />
+                    <div
+                      className={`${
+                        0 === article.politicalGrade && "bg-green-600"
+                      } w-full h-4 rounded-full`}
+                    />
+                    <div
+                      className={`${
+                        1 === article.politicalGrade && "bg-red-300"
+                      } w-full h-4 rounded-full`}
+                    />
+                    <div
+                      className={`${
+                        2 === article.politicalGrade && "bg-red-500"
+                      } w-full h-4 rounded-full`}
+                    />
+                    <div
+                      className={`${
+                        3 === article.politicalGrade && "bg-red-700"
+                      } w-full h-4 rounded-full`}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>Left</div>
+                    <div>Right</div>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -80,7 +120,7 @@ export default async function EventPage({
           <h1 className="text-2xl font-bold">{event?.title}</h1>
           <p className="text-gray-500">{event?.description}</p>
         </div>
-        <SelectArticleCard articles={articles} />
+        <ArticleHorizontalScrollCard articles={articles} eventId={eventId} />
       </div>
     </div>
   );
