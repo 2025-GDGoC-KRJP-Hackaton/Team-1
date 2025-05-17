@@ -43,6 +43,13 @@
       "when": 1747487898054,
       "tag": "0005_quiet_banshee",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1747501611603,
+      "tag": "0006_young_havok",
+      "breakpoints": true
     }
   ]
 }

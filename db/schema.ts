@@ -18,6 +18,7 @@ export const articleTable = pgTable("articleTable", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   title: text("title").notNull(),
   description: text("description"),
+  originalUrl: text("originalUrl"),
   image: text("image"),
   content: text("content"),
   pressOrganization: text("press_organization").notNull(),
