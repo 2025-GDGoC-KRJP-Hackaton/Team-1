@@ -2,4 +2,8 @@ import { atom } from "jotai";
 
 const isMenuOpen = atom(false);
 
-export { isMenuOpen };
+const articleIdList = atom<number[]>([]);
+
+const articleIndex = atom(0);
+
+export { isMenuOpen, articleIdList, articleIndex };
