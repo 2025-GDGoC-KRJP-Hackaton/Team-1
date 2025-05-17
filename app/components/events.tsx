@@ -13,7 +13,7 @@ export default async function Events() {
   console.log(events);
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3">
       {events.map((eventData) => {
         return (
           <Link
@@ -26,11 +26,11 @@ export default async function Events() {
               alt={eventData.title}
               width={600}
               height={400}
-              className="w-full h-full object-cover rounded-t-md"
+              className="w-full object-cover rounded-t-md aspect-5/3"
             />
             <div className="flex flex-col px-2 pb-2">
               <h3 className="text-lg font-semibold">{eventData.title}</h3>
-              <p className="text-sm text-gray-500">{eventData.description}</p>
+              <p className="text-sm text-gray-500 line-clamp-2">{eventData.description}</p>
             </div>
           </Link>
         );
