@@ -1,15 +1,13 @@
-import SelectArticleCard from "@/app/components/select-article-card";
 import db from "@/db";
-import { articleTable, eventTable } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import {articleTable, eventTable} from "@/db/schema";
+import {eq} from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 
 async function getArticles(eventId: string) {
-  const articlesPromise = await db.query.articleTable.findMany({
+  return await db.query.articleTable.findMany({
     where: eq(articleTable.eventId, Number(eventId)),
   });
-  return articlesPromise;
 }
 
 export type Article = Awaited<ReturnType<typeof getArticles>>[number];

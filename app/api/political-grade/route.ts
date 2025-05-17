@@ -1,10 +1,10 @@
 import db from "@/db";
 import { articleTable } from "@/db/schema";
 import { eq, isNull } from "drizzle-orm";
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import { GoogleGenAI, Type } from "@google/genai";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   const ungradedArticles = await db.query.articleTable.findMany({
     where: isNull(articleTable.politicalGrade),
   });

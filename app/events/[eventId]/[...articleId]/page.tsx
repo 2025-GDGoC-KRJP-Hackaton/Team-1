@@ -1,13 +1,10 @@
 import SelectArticleCard from "@/app/components/select-article-card";
 import db from "@/db";
 import { articleTable } from "@/db/schema";
-import { and, eq, gt, inArray, lt, notInArray } from "drizzle-orm";
+import { inArray,  notInArray } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 
-export type Article = Awaited<
-  ReturnType<typeof db.query.articleTable.findFirst>
->;
 
 export default async function ArticlePage({
   params,
