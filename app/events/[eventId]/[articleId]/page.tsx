@@ -1,6 +1,7 @@
 import db from "@/db";
 import { articleTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import Image from "next/image";
 
 export default async function ArticlePage({
   params,
@@ -14,15 +15,23 @@ export default async function ArticlePage({
   });
 
   return (
-    <div className="w-full p-4">
-      <div className="flex flex-col gap-2">
+    <div className="w-full">
+      <Image
+        src={article?.image || "/default-article.png"}
+        alt={article?.title || "Article Image"}
+        width={600}
+        height={400}
+        className="w-full h-full object-cover"
+      />
+      <div className="flex flex-col gap-2 p-4">
         <h1 className="text-2xl font-bold">{article?.title}</h1>
-        <p className="text-gray-500">{article?.description}</p>
-        <p>{article?.pressOrganization}</p>
+        <div className="flex items-center gap-2">
+          <p>{article?.pressOrganization}</p>
+          <p>{article?.createdAt.toLocaleDateString()}</p>
+        </div>
         <p>{article?.journalist}</p>
-        <p>{article?.createdAt.toLocaleDateString()}</p>
       </div>
-      <div> </div>
+      <div>{article?.content}</div>
     </div>
   );
 }
