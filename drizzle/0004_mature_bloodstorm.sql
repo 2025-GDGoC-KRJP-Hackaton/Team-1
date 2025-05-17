@@ -1,0 +1,1 @@
+ALTER TABLE "article_comparisons" RENAME COLUMN "differentOptions" TO "differentOppinions";
