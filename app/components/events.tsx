@@ -2,6 +2,7 @@ import db from "@/db";
 import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { eventTable } from "@/db/schema";
+import Image from "next/image";
 
 export default async function Events() {
   const events = await db.query.eventTable.findMany({
@@ -12,17 +13,28 @@ export default async function Events() {
   console.log(events);
 
   return (
-    <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold">Events</h2>
-      <div className="flex flex-col gap-2">
-        {events.map((eventData) => {
-          return (
-            <Link href={`/articles/${eventData.id}`} key={eventData.id}>
-              {eventData.title}
-            </Link>
-          );
-        })}
-      </div>
+    <div className="flex flex-col gap-2">
+      {events.map((eventData) => {
+        return (
+          <Link
+            href={`/events/${eventData.id}`}
+            key={eventData.id}
+            className="flex flex-col gap-2 bg-white"
+          >
+            <Image
+              src={eventData.image || "/default-event.png"}
+              alt={eventData.title}
+              width={600}
+              height={400}
+              className="w-full h-full object-cover rounded-t-md"
+            />
+            <div className="flex flex-col px-2 pb-2">
+              <h3 className="text-lg font-semibold">{eventData.title}</h3>
+              <p className="text-sm text-gray-500">{eventData.description}</p>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }

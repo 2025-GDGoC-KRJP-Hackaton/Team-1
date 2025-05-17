@@ -39,7 +39,7 @@ export const articleComparisonTable = pgTable("article_comparisons", {
   id: integer("id").primaryKey().generatedAlwaysAsIdentity(),
   articleIdList: jsonb().$type<string[]>().default([]),
   commonOptions: text("commonWords"),
-  differentOptions: jsonb().$type<string[]>().default([]),
+  differentOptions: jsonb().$type<string[][]>().default([]),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
