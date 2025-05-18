@@ -9,15 +9,15 @@ function ArticleHorizontalScrollCard({
   prevHref: string;
 }) {
   return (
-    <>
+    <div className="w-full">
       {articles.length > 0 && (
         <div className="w-full overflow-x-auto snap-proximity snap-x">
-          <div className="flex gap-4 w-max p-4">
+          <div className="flex gap-4 w-max p-4 md:flex-col ">
             {articles.map((article) => (
               <Link
                 href={`/${prevHref}/${article.id}`}
                 key={article.id}
-                className="flex-shrink-0 flex flex-col gap-2 bg-white p-2 rounded-md w-[90vw] snap-center"
+                className="flex flex-col gap-2 bg-white p-2 rounded-md w-[90vw] md:w-62 lg:w-64 snap-center"
               >
                 <h3 className="text-lg font-semibold p-1">{article.title}</h3>
                 <p className="text-gray-500 text-sm p-1">
@@ -75,7 +75,7 @@ function ArticleHorizontalScrollCard({
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
@@ -92,7 +92,6 @@ export default function SelectArticleCard({
 
   for (const article of articles) {
     if (article?.politicalGrade === null) {
-      continue;
     } else if (article?.politicalGrade && article?.politicalGrade < 0) {
       leftArticles.push(article);
     } else if (article?.politicalGrade && article?.politicalGrade > 0) {
@@ -103,7 +102,7 @@ export default function SelectArticleCard({
   }
 
   return (
-    <>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <ArticleHorizontalScrollCard
         articles={leftArticles}
         prevHref={prevHref}
@@ -116,6 +115,6 @@ export default function SelectArticleCard({
         articles={rightArticles}
         prevHref={prevHref}
       />
-    </>
+    </div>
   );
 }
