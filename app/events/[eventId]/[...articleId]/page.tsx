@@ -86,7 +86,7 @@ export default async function ArticlePage({
         alt={thisArticle?.title || "Article Image"}
         width={600}
         height={400}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover max-w-2xl"
       />
       <div className="flex flex-col gap-2 p-4">
         <h1 className="text-2xl font-bold">{thisArticle?.title}</h1>
