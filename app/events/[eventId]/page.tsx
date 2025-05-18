@@ -35,22 +35,24 @@ export default async function EventPage({
   const [event, articles] = await Promise.all([eventPromise, articlesPromise]);
 
   return (
-    <div className="w-full flex flex-col pt-4">
-      <div className="flex flex-col md:flex-row w-full mx-auto px-4">
+    <div className="w-full">
+      <div className="lg:flex">
         <Image
           src={event?.image || "/default-event.png"}
           alt={event?.title || "Event Image"}
           width={600}
           height={400}
-          className="md:w-2/3 w-full h-full object-cover md:rounded-md"
+          className="w-full h-full object-cover lg:flex-5"
         />
-
-        <div className="flex flex-col p-2 md:justify-center md:items-center md:w-1/3">
-          <h1 className="text-2xl font-bold md:text-4xl">{event?.title}</h1>
-          <p className="text-gray-500 md:text-lg">{event?.description}</p>
+        <div className="flex flex-col p-2 lg:flex-2">
+          <h1 className="text-2xl font-bold">{event?.title}</h1>
+          <p className="text-gray-500">{event?.description}</p>
         </div>
       </div>
-      <SelectArticleCard articles={articles} prevHref={`events/${eventId}`} />
+
+      <div>
+        <SelectArticleCard articles={articles} prevHref={`events/${eventId}`} />
+      </div>
     </div>
   );
 }

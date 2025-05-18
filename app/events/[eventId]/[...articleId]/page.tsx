@@ -58,14 +58,14 @@ export default async function ArticlePage({
         otherArticles = otherArticles.filter(
           (otherArticle) =>
             typeof otherArticle.politicalGrade === "number" &&
-            otherArticle.politicalGrade <= 0,
+            otherArticle.politicalGrade <= 0
         );
       }
       if (article.politicalGrade < 0) {
         otherArticles = otherArticles.filter(
           (otherArticle) =>
             typeof otherArticle.politicalGrade === "number" &&
-            otherArticle.politicalGrade >= 0,
+            otherArticle.politicalGrade >= 0
         );
       }
       if (article.politicalGrade === 0) {
@@ -86,7 +86,7 @@ export default async function ArticlePage({
         alt={thisArticle?.title || "Article Image"}
         width={600}
         height={400}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover max-w-2xl"
       />
       <div className="flex flex-col gap-2 p-4">
         <h1 className="text-2xl font-bold">{thisArticle?.title}</h1>
@@ -96,7 +96,15 @@ export default async function ArticlePage({
         </div>
         <p>{thisArticle?.journalist}</p>
       </div>
-      <div className="p-4">{thisArticle?.content}</div>
+      <div className="p-4">
+        {thisArticle?.content?.split("`").map((line, idx) => (
+          <p key={idx}>
+            {line}
+            <br />
+            <br />
+          </p>
+        ))}
+      </div>
       {articleId.length === 1 && (
         <div>
           <SelectArticleCard
