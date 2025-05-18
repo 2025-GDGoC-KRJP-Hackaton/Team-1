@@ -52,6 +52,30 @@ function Analysis() {
     fetchAnalysis();
   }, [articles]);
 
+  if (articles?.length === 1) {
+    return (
+      <div className={"w-full flex flex-col items-center justify-center"}>
+        <div
+          className={
+            "py-24 p-4 flex flex-col gap-4 items-center justify-center"
+          }
+        >
+          <div className={"text-lg font-semi"}>
+            You need to read more than one side to analysis articles!
+          </div>
+          <Link
+            href={"/"}
+            className={
+              "w-full p-2 rounded-lg bg-neutral-900 text-white text-center"
+            }
+          >
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex flex-col gap-2 bg-white p-4 rounded-md">
