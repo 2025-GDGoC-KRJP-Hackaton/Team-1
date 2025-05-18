@@ -39,3 +39,7 @@ cp .env.example .env
 ```bash
 pnpm dev
 ```
+
+## Architecture
+
+![Architecture](https://unbaisly.moveto.kr/architecture.png)
