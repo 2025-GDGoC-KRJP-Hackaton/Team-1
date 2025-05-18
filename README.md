@@ -29,7 +29,9 @@ cp .env.example .env
 ```
 
 3. Add Env Info
+
    DATABASE_URL: PostgreSQL Databse Access URL
+
    GEMINI_KEY: Token to Access Gemini API (from Google Cloud)
 
 4. Run Next.js
