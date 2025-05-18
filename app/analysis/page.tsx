@@ -4,6 +4,14 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 
+function Loading() {
+  return (
+    <p className="p-2 rounded-lg bg-neutral-200 animate-pulse">
+      Analyzing articles with Gemini…
+    </p>
+  );
+}
+
 function Analysis() {
   const searchParams = useSearchParams();
   const articles = searchParams.get("articles");
@@ -36,7 +44,7 @@ function Analysis() {
         {common.map((data, i) => (
           <p key={i}>- {data}</p>
         ))}
-        {common.length === 0 && <p>Loading...</p>}
+        {common.length === 0 && <Loading />}
       </div>
       <div className="flex flex-col gap-2 bg-white p-4 rounded-md">
         <h2 className="text-lg font-bold">Different Opinions</h2>
@@ -48,7 +56,7 @@ function Analysis() {
               ))}
             </div>
           ))}
-          {different.length === 0 && <p>Loading...</p>}
+          {different.length === 0 && <Loading />}
         </div>
       </div>
       <Link

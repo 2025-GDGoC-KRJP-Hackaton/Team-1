@@ -1,7 +1,7 @@
 import SelectArticleCard from "@/app/components/select-article-card";
 import db from "@/db";
 import { articleTable } from "@/db/schema";
-import { inArray, notInArray } from "drizzle-orm";
+import { and, eq, inArray, notInArray } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
@@ -19,9 +19,12 @@ const getArticles = unstable_cache(
 );
 
 const getOtherArticles = unstable_cache(
-  async (articleId: string[]) => {
+  async (eventId: string, articleId: string[]) => {
     return await db.query.articleTable.findMany({
-      where: notInArray(articleTable.id, articleId.map(Number)),
+      where: and(
+        notInArray(articleTable.id, articleId.map(Number)),
+        eq(articleTable.eventId, Number(eventId))
+      ),
     });
   },
   ["articles"],
@@ -39,7 +42,7 @@ export default async function ArticlePage({
 
   const articlesPromise = getArticles(articleId);
 
-  const otherArticlesPromise = getOtherArticles(articleId);
+  const otherArticlesPromise = getOtherArticles(eventId, articleId);
 
   let [articles, otherArticles] = await Promise.all([
     articlesPromise,

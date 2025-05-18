@@ -1,8 +1,9 @@
 import db from "@/db";
 import { articleTable } from "@/db/schema";
 import { eq, isNull } from "drizzle-orm";
-import {  NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { GoogleGenAI, Type } from "@google/genai";
+import { revalidateTag } from "next/cache";
 
 export async function POST() {
   const ungradedArticles = await db.query.articleTable.findMany({
@@ -56,7 +57,7 @@ export async function POST() {
       result.push(chunk.text);
     }
     const parsedResult = JSON.parse(result.join(""));
-    console.log(parsedResult);
+
     await db
       .update(articleTable)
       .set({
@@ -66,6 +67,6 @@ export async function POST() {
       })
       .where(eq(articleTable.id, article.id));
   }
-
-  return NextResponse.json({ result: "Hello" });
+  revalidateTag("articles");
+  return NextResponse.json({ result: "success" });
 }
