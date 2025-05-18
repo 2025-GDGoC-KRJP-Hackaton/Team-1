@@ -5,6 +5,7 @@ import { and, eq, inArray, notInArray } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
+import SummerizedText from "@/app/components/summerized-text";
 
 const getArticles = unstable_cache(
   async (articleId: string[]) => {
@@ -96,6 +97,7 @@ export default async function ArticlePage({
         </div>
         <p>{thisArticle?.journalist}</p>
       </div>
+      <SummerizedText>{thisArticle.summerized}</SummerizedText>
       <div className="p-4">
         {thisArticle?.content?.split("`").map((line, idx) => (
           <p key={idx}>

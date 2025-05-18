@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/header";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "UnbAIsly",
@@ -10,11 +11,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className="bg-neutral-100 pt-16 lg:px-24">
+      <body className="bg-neutral-100 lg:px-24 py-20">
         <Header />
         {children}
       </body>
