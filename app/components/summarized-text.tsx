@@ -24,7 +24,7 @@ export default function SummarizedText({ children }: { children: ReactNode }) {
         }}
         exit={{ height: 0, opacity: 0, y: 20 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="overflow-hidden ring-2 p-2 ring-neutral-500 rounded-lg"
+        className="overflow-hidden ring-2 p-2 ring-neutral-500 rounded-lg mb-4"
       >
         <p className={"text-lg font-semibold"}>Summarized Text</p>
         <p>{children}</p>
