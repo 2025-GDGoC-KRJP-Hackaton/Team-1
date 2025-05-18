@@ -12,7 +12,7 @@ function ArticleHorizontalScrollCard({
     <>
       {articles.length > 0 && (
         <div className="w-full overflow-x-auto snap-mandatory snap-x lg:overflow-x-visible lg:snap-none lg:flex-1">
-          <div className="flex gap-4 w-max p-4 lg:w-auto lg:flex-col">
+          <div className="flex gap-4 w-max p-4 lg:w-auto lg:flex-col lg:p-0 lg:pt-4">
             {articles.map((article) => (
               <Link
                 href={`/${prevHref}/${article.id}`}
@@ -112,7 +112,7 @@ export default function SelectArticleCard({
   }
 
   return (
-    <div className="lg:flex">
+    <div className="lg:flex lg:gap-4">
       <ArticleHorizontalScrollCard
         articles={leftArticles}
         prevHref={prevHref}
