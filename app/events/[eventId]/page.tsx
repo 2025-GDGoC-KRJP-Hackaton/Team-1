@@ -13,7 +13,7 @@ const getArticles = unstable_cache(
   },
   ["articles"],
   {
-    revalidate: 10,
+    revalidate: 60,
   },
 );
 
@@ -33,6 +33,21 @@ export default async function EventPage({
   const articlesPromise = getArticles(eventId);
 
   const [event, articles] = await Promise.all([eventPromise, articlesPromise]);
+
+  const leftArticles = [];
+  const rightArticles = [];
+  const centerArticles = [];
+
+  for (const article of articles) {
+    if (article?.politicalGrade === null) {
+    } else if (article?.politicalGrade && article?.politicalGrade < 0) {
+      leftArticles.push(article);
+    } else if (article?.politicalGrade && article?.politicalGrade > 0) {
+      rightArticles.push(article);
+    } else if (article?.politicalGrade === 0) {
+      centerArticles.push(article);
+    }
+  }
 
   return (
     <div className="w-full">

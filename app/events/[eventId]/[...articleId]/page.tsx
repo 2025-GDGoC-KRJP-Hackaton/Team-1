@@ -14,7 +14,7 @@ const getArticles = unstable_cache(
   },
   ["articles"],
   {
-    revalidate: 10,
+    revalidate: 60,
   },
 );
 
@@ -29,7 +29,7 @@ const getOtherArticles = unstable_cache(
   },
   ["articles"],
   {
-    revalidate: 10,
+    revalidate: 60,
   },
 );
 
@@ -44,13 +44,13 @@ export default async function ArticlePage({
 
   const otherArticlesPromise = getOtherArticles(eventId, articleId);
 
-  const [resolvedArticles, resolvedOtherArticles] = await Promise.all([
+  const [articlesResult, otherArticlesResult] = await Promise.all([
     articlesPromise,
     otherArticlesPromise,
   ]);
 
-  const articles = resolvedArticles;
-  let otherArticles = resolvedOtherArticles;
+  const articles = articlesResult;
+  let otherArticles = otherArticlesResult;
 
   for (const article of articles) {
     if (typeof article.politicalGrade === "number") {
