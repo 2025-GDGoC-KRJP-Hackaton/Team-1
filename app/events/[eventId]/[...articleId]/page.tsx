@@ -58,14 +58,14 @@ export default async function ArticlePage({
         otherArticles = otherArticles.filter(
           (otherArticle) =>
             typeof otherArticle.politicalGrade === "number" &&
-            otherArticle.politicalGrade <= 0
+            otherArticle.politicalGrade <= 0,
         );
       }
       if (article.politicalGrade < 0) {
         otherArticles = otherArticles.filter(
           (otherArticle) =>
             typeof otherArticle.politicalGrade === "number" &&
-            otherArticle.politicalGrade >= 0
+            otherArticle.politicalGrade >= 0,
         );
       }
       if (article.politicalGrade === 0) {
