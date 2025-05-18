@@ -13,7 +13,7 @@ const getEvents = unstable_cache(
     }),
   ["events"],
   {
-    revalidate: 60,
+    revalidate: 10,
   },
 );
 

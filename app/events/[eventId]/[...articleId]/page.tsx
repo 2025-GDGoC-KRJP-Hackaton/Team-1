@@ -14,7 +14,7 @@ const getArticles = unstable_cache(
   },
   ["articles"],
   {
-    revalidate: 60,
+    revalidate: 10,
   },
 );
 
@@ -29,7 +29,7 @@ const getOtherArticles = unstable_cache(
   },
   ["articles"],
   {
-    revalidate: 60,
+    revalidate: 10,
   },
 );
 
