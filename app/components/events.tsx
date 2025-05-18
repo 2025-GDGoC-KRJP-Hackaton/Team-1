@@ -14,7 +14,7 @@ const getEvents = unstable_cache(
   ["events"],
   {
     revalidate: 60,
-  }
+  },
 );
 
 export default async function Events() {

@@ -164,12 +164,8 @@
           "name": "articleTable_event_id_events_id_fk",
           "tableFrom": "articleTable",
           "tableTo": "events",
-          "columnsFrom": [
-            "event_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["event_id"],
+          "columnsTo": ["id"],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
