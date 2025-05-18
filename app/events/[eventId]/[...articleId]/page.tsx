@@ -1,10 +1,34 @@
 import SelectArticleCard from "@/app/components/select-article-card";
 import db from "@/db";
 import { articleTable } from "@/db/schema";
-import { inArray,  notInArray } from "drizzle-orm";
+import { inArray, notInArray } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
 
+const getArticles = unstable_cache(
+  async (articleId: string[]) => {
+    return await db.query.articleTable.findMany({
+      where: inArray(articleTable.id, articleId.map(Number)),
+    });
+  },
+  ["articles"],
+  {
+    revalidate: 60,
+  }
+);
+
+const getOtherArticles = unstable_cache(
+  async (articleId: string[]) => {
+    return await db.query.articleTable.findMany({
+      where: notInArray(articleTable.id, articleId.map(Number)),
+    });
+  },
+  ["articles"],
+  {
+    revalidate: 60,
+  }
+);
 
 export default async function ArticlePage({
   params,
@@ -13,13 +37,14 @@ export default async function ArticlePage({
 }) {
   const { eventId, articleId } = await params;
 
-  const articles = await db.query.articleTable.findMany({
-    where: inArray(articleTable.id, articleId.map(Number)),
-  });
+  const articlesPromise = getArticles(articleId);
 
-  let otherArticles = await db.query.articleTable.findMany({
-    where: notInArray(articleTable.id, articleId.map(Number)),
-  });
+  const otherArticlesPromise = getOtherArticles(articleId);
+
+  let [articles, otherArticles] = await Promise.all([
+    articlesPromise,
+    otherArticlesPromise,
+  ]);
 
   for (const article of articles) {
     if (typeof article.politicalGrade === "number") {
@@ -47,8 +72,6 @@ export default async function ArticlePage({
     }
   }
 
-  console.log(`events/${eventId}/${articleId.join("/")}`);
-
   const thisArticle = articles[articleId.length - 1];
   return (
     <div className="w-full flex flex-col gap-2">
@@ -63,7 +86,7 @@ export default async function ArticlePage({
         <h1 className="text-2xl font-bold">{thisArticle?.title}</h1>
         <div className="flex items-center gap-2">
           <p>{thisArticle?.pressOrganization}</p>
-          <p>{thisArticle?.createdAt.toLocaleDateString()}</p>
+          <p>{new Date(thisArticle?.createdAt).toLocaleDateString()}</p>
         </div>
         <p>{thisArticle?.journalist}</p>
       </div>

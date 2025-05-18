@@ -25,7 +25,7 @@ function ArticleHorizontalScrollCard({
                 </p>
                 <div className="flex items-center gap-2 justify-start">
                   <p>{article.pressOrganization}</p>
-                  <div>{article.createdAt.toLocaleDateString()}</div>
+                  <div>{new Date(article.createdAt).toLocaleDateString()}</div>
                 </div>
                 <div>
                   <div className="w-full h-4 rounded-full flex items-center justify-between bg-neutral-200/80">

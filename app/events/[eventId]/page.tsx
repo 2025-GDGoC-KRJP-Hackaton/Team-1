@@ -1,14 +1,21 @@
 import db from "@/db";
-import {articleTable, eventTable} from "@/db/schema";
-import {eq} from "drizzle-orm";
+import { articleTable, eventTable } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import Image from "next/image";
 import SelectArticleCard from "@/app/components/select-article-card";
+import { unstable_cache } from "next/cache";
 
-async function getArticles(eventId: string) {
-  return await db.query.articleTable.findMany({
-    where: eq(articleTable.eventId, Number(eventId)),
-  });
-}
+const getArticles = unstable_cache(
+  async (eventId: string) => {
+    return await db.query.articleTable.findMany({
+      where: eq(articleTable.eventId, Number(eventId)),
+    });
+  },
+  ["articles"],
+  {
+    revalidate: 60,
+  }
+);
 
 export type Article = Awaited<ReturnType<typeof getArticles>>[number];
 
