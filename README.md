@@ -42,4 +42,4 @@ pnpm dev
 
 ## Architecture
 
-![Architecture](https://unbaisly.moveto.kr/architecture.png)
+![Architecture](https://github.com/2025-GDGoC-KRJP-Hackaton/Team-1/blob/main/public/architecture.png?raw=true)
