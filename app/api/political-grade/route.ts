@@ -21,7 +21,7 @@ export async function POST() {
         "1_political_grade": {
           type: Type.STRING,
           description:
-            "Ranking on a -3 to 3 scale where negative number is more politically left and positive number politically right",
+            "Ranking on a -3 to 3 scale where negative number is more politically left and positive number politically right. If the article is neutral, rate it as 0.",
         },
         "2_description": {
           type: Type.STRING,
