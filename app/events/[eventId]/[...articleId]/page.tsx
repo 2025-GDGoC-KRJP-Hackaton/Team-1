@@ -44,10 +44,13 @@ export default async function ArticlePage({
 
   const otherArticlesPromise = getOtherArticles(eventId, articleId);
 
-  let [articles, otherArticles] = await Promise.all([
+  const [articlesResult, otherArticlesResult] = await Promise.all([
     articlesPromise,
     otherArticlesPromise,
   ]);
+
+  const articles = articlesResult;
+  let otherArticles = otherArticlesResult;
 
   for (const article of articles) {
     if (typeof article.politicalGrade === "number") {
@@ -93,7 +96,15 @@ export default async function ArticlePage({
         </div>
         <p>{thisArticle?.journalist}</p>
       </div>
-      <div className="p-4">{thisArticle?.content}</div>
+      <div className="p-4">
+        {thisArticle?.content?.split("`").map((line, idx) => (
+          <p key={idx}>
+            {line}
+            <br />
+            <br />
+          </p>
+        ))}
+      </div>
       {articleId.length === 1 && (
         <div>
           <SelectArticleCard
