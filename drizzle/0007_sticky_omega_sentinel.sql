@@ -1,1 +1,0 @@
-ALTER TABLE "article_comparisons" RENAME COLUMN "commonWords" TO "commonOpinions";

@@ -1,9 +1,81 @@
 {
-  "id": "93cea6b3-7e7a-4f97-aa11-4079ccd291c0",
+  "id": "6aa910aa-e897-4e08-8fe9-16742c7a1fb1",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.article_comparisons": {
+      "name": "article_comparisons",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "identity": {
+            "type": "always",
+            "name": "article_comparisons_id_seq",
+            "schema": "public",
+            "increment": "1",
+            "startWith": "1",
+            "minValue": "1",
+            "maxValue": "2147483647",
+            "cache": "1",
+            "cycle": false
+          }
+        },
+        "articleIdList": {
+          "name": "articleIdList",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "commonOpinions": {
+          "name": "commonOpinions",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'[]'::jsonb"
+        },
+        "differentOppinions": {
+          "name": "differentOppinions",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'[]'::jsonb"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "article_comparisons_articleIdList_unique": {
+          "name": "article_comparisons_articleIdList_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "articleIdList"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.articleTable": {
       "name": "articleTable",
       "schema": "",
@@ -31,6 +103,30 @@
           "primaryKey": false,
           "notNull": true
         },
+        "description": {
+          "name": "description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "originalUrl": {
+          "name": "originalUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "press_organization": {
           "name": "press_organization",
           "type": "text",
@@ -55,6 +151,12 @@
           "primaryKey": false,
           "notNull": false
         },
+        "summarized": {
+          "name": "summarized",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "created_at": {
           "name": "created_at",
           "type": "timestamp",
@@ -76,8 +178,12 @@
           "name": "articleTable_event_id_events_id_fk",
           "tableFrom": "articleTable",
           "tableTo": "events",
-          "columnsFrom": ["event_id"],
-          "columnsTo": ["id"],
+          "columnsFrom": [
+            "event_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
           "onDelete": "no action",
           "onUpdate": "no action"
         }
@@ -120,6 +226,12 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",

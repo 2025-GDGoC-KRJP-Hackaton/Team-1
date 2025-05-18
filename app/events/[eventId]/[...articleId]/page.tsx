@@ -5,7 +5,7 @@ import { and, eq, inArray, notInArray } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { unstable_cache } from "next/cache";
-import SummarizedText from "@/app/components/summerized-text";
+import SummarizedText from "@/app/components/summarized-text";
 
 const getArticles = unstable_cache(
   async (articleId: string[]) => {

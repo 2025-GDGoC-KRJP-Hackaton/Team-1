@@ -5,64 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1747483476809,
-      "tag": "0000_loving_tenebrous",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1747484441384,
-      "tag": "0001_light_mantis",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1747485835581,
-      "tag": "0002_misty_wendigo",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1747485873922,
-      "tag": "0003_true_nightmare",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1747487290930,
-      "tag": "0004_mature_bloodstorm",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1747487898054,
-      "tag": "0005_quiet_banshee",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1747501611603,
-      "tag": "0006_young_havok",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1747502905715,
-      "tag": "0007_sticky_omega_sentinel",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1747529451017,
-      "tag": "0008_tiresome_whistler",
+      "when": 1747541902666,
+      "tag": "0000_wet_firedrake",
       "breakpoints": true
     }
   ]
