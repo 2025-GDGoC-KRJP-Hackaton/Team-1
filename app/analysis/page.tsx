@@ -4,6 +4,10 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 
+/**
+ * Loading component to show while the analysis is being processed.
+ * @constructor
+ */
 function Loading() {
   return (
     <p className="p-2 rounded-lg bg-neutral-200 animate-pulse">
@@ -12,21 +16,32 @@ function Loading() {
   );
 }
 
+// Component to display the analysis of articles.
 function Analysis() {
+  // Get the search parameters from the URL.
   const searchParams = useSearchParams();
   const articles = searchParams.get("articles");
 
+  // State variables to store the common and different opinions.
   const [common, setCommon] = useState<string[]>([]);
   const [different, setDifferent] = useState<string[][]>([]);
 
   useEffect(() => {
+    // Fetch the analysis data from the server.
     const fetchAnalysis = async () => {
       const response = await fetch("/api/article/analysis", {
         method: "POST",
         body: JSON.stringify({ articleIds: articles?.split(",").map(Number) }),
       });
       const data = await response.json();
-      console.log(data);
+
+      // Check if the response is valid and contains the expected data.
+      if (!response.ok) {
+        console.error("Error fetching analysis data:", data);
+        return;
+      }
+
+      // Update the state with the analysis data.
       if (data?.differentOpinions) {
         setCommon(data.commonOpinions);
       }

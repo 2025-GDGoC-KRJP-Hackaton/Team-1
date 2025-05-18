@@ -5,9 +5,15 @@ import db from "@/db";
 import { articleComparisonTable, articleTable } from "@/db/schema";
 import { eq, inArray } from "drizzle-orm";
 
+/**
+ * Analysis route to compare articles using Google Gemini AI.
+ * @param request
+ * @constructor
+ */
 export async function POST(request: NextRequest) {
   const { articleIds } = (await request.json()) as { articleIds: number[] };
 
+  // Check if the articleIds are valid
   const findCache = await db.query.articleComparisonTable.findFirst({
     where: eq(
       articleComparisonTable.articleIdList,

@@ -44,10 +44,13 @@ export default async function ArticlePage({
 
   const otherArticlesPromise = getOtherArticles(eventId, articleId);
 
-  let [articles, otherArticles] = await Promise.all([
+  const [resolvedArticles, resolvedOtherArticles] = await Promise.all([
     articlesPromise,
     otherArticlesPromise,
   ]);
+
+  const articles = resolvedArticles;
+  let otherArticles = resolvedOtherArticles;
 
   for (const article of articles) {
     if (typeof article.politicalGrade === "number") {
