@@ -1,6 +1,12 @@
 import { Article } from "../events/[eventId]/page";
 import Link from "next/link";
 
+/**
+ * Article horizontal scroll card component
+ * @param articles - articles to display
+ * @param prevHref - previous href
+ * @returns Article horizontal scroll card component
+ */
 function ArticleHorizontalScrollCard({
   articles,
   prevHref,

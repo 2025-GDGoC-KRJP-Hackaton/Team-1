@@ -5,6 +5,7 @@ import { eventTable } from "@/db/schema";
 import Image from "next/image";
 import { unstable_cache } from "next/cache";
 
+// Get events Query
 const getEvents = unstable_cache(
   async () =>
     await db.query.eventTable.findMany({
@@ -14,9 +15,10 @@ const getEvents = unstable_cache(
   ["events"],
   {
     revalidate: 10,
-  },
+  }
 );
 
+// Events component
 export default async function Events() {
   const events = await getEvents();
 

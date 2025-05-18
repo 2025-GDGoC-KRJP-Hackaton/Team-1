@@ -5,6 +5,11 @@ import Image from "next/image";
 import SelectArticleCard from "@/app/components/select-article-card";
 import { unstable_cache } from "next/cache";
 
+/**
+ * Get articles Query
+ * @param eventId - event id
+ * @returns articles
+ */
 const getArticles = unstable_cache(
   async (eventId: string) => {
     return await db.query.articleTable.findMany({
@@ -14,7 +19,7 @@ const getArticles = unstable_cache(
   ["articles"],
   {
     revalidate: 60,
-  },
+  }
 );
 
 export type Article = Awaited<ReturnType<typeof getArticles>>[number];

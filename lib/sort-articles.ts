@@ -1,5 +1,10 @@
 import { Article } from "@/app/events/[eventId]/page";
 
+/**
+ * Sort articles to left, right, and center
+ * @param articles - articles to sort
+ * @returns sorted articles
+ */
 export default function sortArticles(articles: Article[]) {
   const leftArticles = [];
   const rightArticles = [];

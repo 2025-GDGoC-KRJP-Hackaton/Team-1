@@ -1,3 +1,8 @@
+/**
+ * Political grade bar component
+ * @param grade - grade of the article
+ * @returns Political grade bar component
+ */
 export default function PoliticalGradeBar({ grade }: { grade: number }) {
   return (
     <div className="w-full h-4 rounded-full flex items-center justify-between bg-neutral-200/80">

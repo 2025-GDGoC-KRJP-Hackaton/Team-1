@@ -2,6 +2,9 @@ import { Article } from "@/app/events/[eventId]/page";
 import Link from "next/link";
 import PoliticalGradeBar from "@/app/components/political-grade-bar";
 
+/**
+ * Article horizontal scroll card component
+ */
 export function ArticleHorizontalScrollCard({
   articles,
   prevHref,

@@ -6,9 +6,11 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { revalidateTag } from "next/cache";
 
 export async function POST() {
+  // Get all ungraded articles
   const ungradedArticles = await db.query.articleTable.findMany({
     where: isNull(articleTable.politicalGrade),
   });
+  // Initialize Google GenAI
   const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_KEY,
   });
@@ -34,7 +36,9 @@ export async function POST() {
       },
     },
   };
+  // Use Gemini 2.5 Pro Preview model
   const model = "gemini-2.5-pro-preview-05-06";
+  // Grade each article
   for (const article of ungradedArticles) {
     const contents = [
       {
@@ -47,6 +51,7 @@ export async function POST() {
       },
     ];
 
+    // Generate content stream
     const response = await ai.models.generateContentStream({
       model,
       config,
@@ -58,6 +63,7 @@ export async function POST() {
     }
     const parsedResult = JSON.parse(result.join(""));
 
+    // Update the article with the parsed result
     await db
       .update(articleTable)
       .set({
@@ -67,6 +73,10 @@ export async function POST() {
       })
       .where(eq(articleTable.id, article.id));
   }
+
+  // Revalidate the articles cache
   revalidateTag("articles");
+
+  // Return success response
   return NextResponse.json({ result: "success" });
 }
