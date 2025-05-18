@@ -3,10 +3,27 @@ import { NextRequest } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import db from "@/db";
 import { articleComparisonTable, articleTable } from "@/db/schema";
-import { inArray } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
   const { articleIds } = (await request.json()) as { articleIds: number[] };
+
+  const findCache = await db.query.articleComparisonTable.findFirst({
+    where: eq(
+      articleComparisonTable.articleIdList,
+      articleIds
+        .map((id) => id.toString())
+        .sort()
+        .join(",")
+    ),
+  });
+
+  if (findCache) {
+    return NextResponse.json({
+      commonOpinions: findCache.commonOpinions,
+      differentOpinions: findCache.differentOppinions,
+    });
+  }
 
   const articles = await db.query.articleTable.findMany({
     where: inArray(articleTable.id, articleIds),
@@ -61,11 +78,21 @@ Return your response in JSON only:
 
   const parsedResult = JSON.parse(result.join(""));
 
-  await db.insert(articleComparisonTable).values({
-    commonOpinions: parsedResult.commonOpinions as string[],
-    differentOppinions: parsedResult.differentOpinions as string[][],
-    articleIdList: articleIds.map((id) => id.toString()),
-  });
+  try {
+    await db.insert(articleComparisonTable).values({
+      commonOpinions: parsedResult.commonOpinions as string[],
+      differentOppinions: parsedResult.differentOpinions as string[][],
+      articleIdList: articleIds
+        .map((id) => id.toString())
+        .sort()
+        .join(","),
+    });
+  } catch (error) {
+    console.error(error);
+  }
 
-  return NextResponse.json({ result: result.join("") });
+  return NextResponse.json({
+    commonOpinions: parsedResult.commonOpinions,
+    differentOpinions: parsedResult.differentOpinions,
+  });
 }

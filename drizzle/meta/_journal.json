@@ -57,6 +57,13 @@
       "when": 1747502905715,
       "tag": "0007_sticky_omega_sentinel",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1747529451017,
+      "tag": "0008_tiresome_whistler",
+      "breakpoints": true
     }
   ]
 }
