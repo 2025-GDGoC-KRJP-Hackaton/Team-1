@@ -52,7 +52,7 @@ function Analysis() {
     fetchAnalysis();
   }, [articles]);
 
-  if (articles?.length === 1) {
+  if (articles?.split(",")?.length === 1) {
     return (
       <div className={"w-full flex flex-col items-center justify-center"}>
         <div
@@ -60,7 +60,7 @@ function Analysis() {
             "py-24 p-4 flex flex-col gap-4 items-center justify-center"
           }
         >
-          <div className={"text-lg font-semi"}>
+          <div className={"text-xl font-semi"}>
             You need to read more than one side to analysis articles!
           </div>
           <Link
