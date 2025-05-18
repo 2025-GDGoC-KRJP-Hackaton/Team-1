@@ -63,7 +63,7 @@ export async function POST() {
       .set({
         politicalGrade: parsedResult["1_political_grade"],
         description: parsedResult["2_description"],
-        summerized: parsedResult["3_summary"],
+        summarized: parsedResult["3_summary"],
       })
       .where(eq(articleTable.id, article.id));
   }

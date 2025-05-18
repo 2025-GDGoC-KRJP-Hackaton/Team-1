@@ -144,8 +144,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "summerized": {
-          "name": "summerized",
+        "summarized": {
+          "name": "summarized",
           "type": "text",
           "primaryKey": false,
           "notNull": false

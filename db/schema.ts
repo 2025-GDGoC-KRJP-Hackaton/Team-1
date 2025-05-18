@@ -25,7 +25,7 @@ export const articleTable = pgTable("articleTable", {
   journalist: text("journalist").notNull(),
   eventId: integer("event_id").references(() => eventTable.id),
   politicalGrade: integer("political_grade"),
-  summerized: text("summerized"),
+  summarized: text("summarized"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

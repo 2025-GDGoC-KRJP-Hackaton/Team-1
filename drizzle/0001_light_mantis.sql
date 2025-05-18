@@ -8,4 +8,4 @@ CREATE TABLE "article_comparisons" (
 );
 --> statement-breakpoint
 ALTER TABLE "articleTable" ADD COLUMN "description" text;--> statement-breakpoint
-ALTER TABLE "articleTable" ADD COLUMN "summerized" text;
+ALTER TABLE "articleTable" ADD COLUMN "summarized" text;
